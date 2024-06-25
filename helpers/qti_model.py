@@ -57,4 +57,9 @@ class multiple_choice_item(item_base):
     def to_dict(self):
         alternatives = {(chr(idx + 65)): alt.content for idx,
                         alt in enumerate(self.alternatives)}
-        return {**item_base.to_dict(self), **alternatives}
+        # find the index of the correct answer which matches the identifier of the self.alternatives
+        correct_response = ''
+        if self.correct_response != '':
+            correct_response = (chr([k for k, v in enumerate(self.alternatives) if v.identifier == self.correct_response][0] + 65))
+        
+        return {**item_base.to_dict(self), **alternatives, 'correct_response': correct_response}
