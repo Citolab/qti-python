@@ -6,8 +6,8 @@ import subprocess
 from helpers.qti_model import alternative, multiple_choice_item, interaction_type, item_base
 from helpers.helper_functions import clean, get_namespace, get_correct_tag, get_interaction_type, get_item_resource_type, get_end_clean, is_child_of
 
-FILE_NAME = '#__MY_FOLDER__#/qti.zip'
-TEMP_FOLDER = '/temp'
+FILE_NAME = '/Users/marcelh/Downloads/packages_4a1bc6363ddd8894211669eaef2b52d4262a94f6498b6a0f841a3f6c93255f78_QTI toets Toets 1.1.1 NL GB 05-10-2022_qti3.zip'
+TEMP_FOLDER = '/Users/marcelh/Downloads/temp'
 
 if not os.path.exists(TEMP_FOLDER):
     os.makedirs(TEMP_FOLDER)
@@ -57,6 +57,8 @@ for item_ref in item_codes:
         else:
             if elem.text is not None and not is_child_of(interactions, elem):
                 BODY = BODY + ' ' + clean(elem.text)
+            if elem.tail is not None and not is_child_of(interactions, elem):
+                BODY = BODY + ' ' + clean(elem.tail)
     BODY = clean(BODY)
     correct_response_element = item.find(f'.//d:{get_correct_tag(VERSION, "correctResponse")}', item_ns)
     res_e = []
